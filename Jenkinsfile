@@ -30,5 +30,15 @@ pipeline {
                 '''
             }
         }
+        stage('Test') {
+            steps {
+                sh '''
+                docker build -t jenkins-api ./simple-api/
+                docker run jenkins-api
+
+                
+                '''
+            }
+        }
     }
 }
