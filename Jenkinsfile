@@ -38,7 +38,7 @@ pipeline {
 
                 
 
-                ls /simple-api/
+                ls simple-api/
 
                 cd simple-api-robot
 
