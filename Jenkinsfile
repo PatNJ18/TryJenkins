@@ -34,11 +34,8 @@ pipeline {
         stage('Testing') {
             steps {
                 sh '''
-                ls 
 
-                
-
-                ls simple-api/
+                python3 simple-api/tests/test.py
 
                 cd simple-api-robot
 
