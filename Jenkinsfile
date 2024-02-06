@@ -32,15 +32,17 @@ pipeline {
             }
         }
         stage('Testing') {
-            sh '''
-            python3 /simple-api/tests/test.py
+            steps {
+                sh '''
+                python3 /simple-api/tests/test.py
 
-            cd simple-api-robot
+                cd simple-api-robot
 
-            robot apitest.robot
-            '''
+                robot apitest.robot
+                '''
+            }
         }
 
-        
+
     }
 }
