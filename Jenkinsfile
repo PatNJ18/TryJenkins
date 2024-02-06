@@ -35,7 +35,7 @@ pipeline {
                 sh '''
                 cd simple-api
                 docker build -t jenkins-container ./
-                docker run jenkins-container
+                docker run -p 8081:5000 --name test-jenkins jenkins-container
 
 
 
