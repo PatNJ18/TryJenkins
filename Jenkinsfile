@@ -31,16 +31,11 @@ pipeline {
             }
         }
         stage('Test') {
-            agent {
-                docker {
-                    image 'python:3.7-alpine'
-                }
-            }
             steps {
                 sh '''
                 cd simple-api
-                pip install -r requirements.txt
-                python /app/app.py
+                docker build -t jenkins-container ./
+                docker run jenkins-container
 
 
 
