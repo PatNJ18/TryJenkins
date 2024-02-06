@@ -26,7 +26,7 @@ pipeline {
                 cd simple-api
 
                 docker build -t jenkins-container ./
-                docker run -d -p 8081:5000 --name test-jenkins jenkins-container
+                docker run -d -p 5000:5000 --name test-jenkins jenkins-container
 
                 '''
             }
@@ -34,7 +34,11 @@ pipeline {
         stage('Testing') {
             steps {
                 sh '''
-                python3 /simple-api/tests/test.py
+                ls 
+
+                
+
+                ls /simple-api/
 
                 cd simple-api-robot
 
