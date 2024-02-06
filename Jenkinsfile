@@ -22,25 +22,25 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo "Building.."
-                sh '''
-                echo "clone repo and build container"
-                ls 
-                pwd
-                '''
-            }
-        }
-        stage('Test') {
-            steps {
                 sh '''
                 cd simple-api
+
                 docker build -t jenkins-container ./
-                docker run -p 8081:5000 --name test-jenkins jenkins-container
-
-
+                docker run -p -d 8081:5000 --name test-jenkins jenkins-container
 
                 '''
             }
         }
+        stage('Testing') {
+            sh '''
+            python3 /simple-api/tests/test.py
+
+            cd simple-api-robot
+
+            robot apitest.robot
+            '''
+        }
+
+        
     }
 }
