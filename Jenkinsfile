@@ -42,8 +42,7 @@ pipeline {
         stage('Testing on VM2') {
             steps {
 
-                sshCommand(remote : vm2, command: "robot simple-api-robot/apitest.robot")
-
+                sshCommand(remote : vm2, command: "python3 -m robot simple-api-robot/apitest.robot")
                 
                 sshCommand(remote : vm2, command: "docker build -t registry.gitlab.com/me2742732/testme/simple-api simple-api/")
                 
