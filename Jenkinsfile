@@ -54,10 +54,10 @@ pipeline {
         stage('Pre-Prod') {
             steps {
                 
-                sshCommand(remote : vm2, command: "docker pull registry.gitlab.com/me2742732/testme/simple-api")
+                sshCommand(remote : vm3, command: "docker pull registry.gitlab.com/me2742732/testme/simple-api")
 
 
-                sshCommand(remote : vm2, command: "docker run -d -p 9080:5000 --name simple-api registry.gitlab.com/me2742732/testme/simple-api")
+                sshCommand(remote : vm3, command: "docker run -d -p 5000:5000 --name simple-api registry.gitlab.com/me2742732/testme/simple-api")
 
 
             }
