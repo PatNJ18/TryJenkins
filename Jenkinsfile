@@ -33,7 +33,7 @@ pipeline {
 
                 sshCommand(remote : vm2, command: "ls")
 
-                sshCommand(remote : vm2, command: "docker build -t jenkins-container .")
+                sshCommand(remote : vm2, command: "docker build -t jenkins-container simple-api/")
 
                 sshCommand(remote : vm2, command: "docker run -d -p 5000:5000 --name test-jenkins jenkins-container")
 
@@ -41,13 +41,11 @@ pipeline {
         }
         stage('Testing on VM2') {
             steps {
-                sshCommand(remote : vm2, command: "cd simple-api-robot")
 
-                sshCommand(remote : vm2, command: "robot apitest.robot")
+                sshCommand(remote : vm2, command: "robot simple-api-robot/apitest.robot")
 
-                sshCommand(remote : vm2, command: "cd ../simple-api")
                 
-                sshCommand(remote : vm2, command: "docker build -t registry.gitlab.com/me2742732/testme/simple-api .")
+                sshCommand(remote : vm2, command: "docker build -t registry.gitlab.com/me2742732/testme/simple-api simple-api/")
                 
                 sshCommand(remote : vm2, command: "docker push registry.gitlab.com/me2742732/testme/simple-api")
 
