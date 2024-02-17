@@ -31,6 +31,8 @@ pipeline {
 
                 sshCommand(remote : vm2, command: "cd simple-api")
 
+                sshCommand(remote : vm2, command: "ls")
+
                 sshCommand(remote : vm2, command: "docker build -t jenkins-container .")
 
                 sshCommand(remote : vm2, command: "docker run -d -p 5000:5000 --name test-jenkins jenkins-container")
