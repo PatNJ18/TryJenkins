@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Build on VM2') {
             steps {
-                sshCommand(remote : vm2, command: "python3 simple-api/tests/test.py")
+                sshCommand(remote : vm2, command: "python3 simple-api/test.py")
 
                 sshCommand(remote : vm2, command: "cd simple-api")
 
