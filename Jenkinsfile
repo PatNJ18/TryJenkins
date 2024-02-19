@@ -1,6 +1,6 @@
 def vm2=[:]
 vm2.name = 'vm2'
-vm2.host = '192.168.86.114'
+vm2.host = '192.168.2.39'
 vm2.user = 'elevier2'
 vm2.port = 22
 vm2.password = 'elevier'
@@ -8,7 +8,7 @@ vm2.allowAnyHosts = true
 
 def vm3=[:]
 vm3.name = 'vm3'
-vm3.host = '192.168.86.127'
+vm3.host = '192.168.2.37'
 vm3.user = 'elevier3'
 vm3.port = 22
 vm3.password = 'elevier'
@@ -19,9 +19,12 @@ pipeline {
     stages {
         stage("Clone Git Repository") {
             steps {
+                sshCommand(remote : vm2, command: "sh init.sh")
+
                 sshCommand(remote : vm2, command: "git clone https://github.com/PatNJ18/simple-api.git")
 
                 sshCommand(remote : vm2, command: "git clone https://github.com/PatNJ18/simple-api-robot.git")
+
                 
             }
         }
@@ -53,6 +56,8 @@ pipeline {
 
         stage('Pre-Prod') {
             steps {
+                sshCommand(remote : vm3, command: "sh init.sh")
+
                 
                 sshCommand(remote : vm3, command: "docker pull registry.gitlab.com/me2742732/testme/simple-api")
 
