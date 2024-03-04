@@ -1,24 +1,30 @@
 def vm2=[:]
 vm2.name = 'vm2'
-vm2.host = '192.168.2.39'
-vm2.user = 'elevier2'
+vm2.host = '192.168.0.135'
 vm2.port = 22
-vm2.password = 'elevier'
 vm2.allowAnyHosts = true
 
 def vm3=[:]
 vm3.name = 'vm3'
-vm3.host = '192.168.2.37'
-vm3.user = 'elevier3'
+vm3.host = '192.168.0.229'
 vm3.port = 22
-vm3.password = 'elevier'
 vm3.allowAnyHosts = true
 
 pipeline {
     agent any
+    environment {
+        VM2 = credentials('192.168.0.135')
+        VM3 = credentials('192.168.0.229')
+    }
     stages {
         stage("Clone Git Repository") {
             steps {
+                script {
+                    vm2.user = env.VM2_USR
+                    vm2.password = env.VM2_PSW
+                    vm3.user = env.VM3_USR
+                    vm3.password = env.VM3_PSW
+                }
                 sshCommand(remote : vm2, command: "sh init.sh")
 
                 sshCommand(remote : vm2, command: "git clone https://github.com/PatNJ18/simple-api.git")
